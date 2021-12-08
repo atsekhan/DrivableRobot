@@ -30,6 +30,37 @@ public final class Constants {
                 // Assumes the encoders are directly mounted on the wheel shafts
                 (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
 
+        // MotionMagic constants section
+
+        // Closed loop constants
+        // How long we wait for a configuration change to happen before we give up and
+        // report a failure in milliseconds
+        public final static int configureTimeoutMs = 30;
+        // Full motor output value
+        public final static int fullMotorOutput = 1023;
+        // How many milliseconds between each closed loop call
+        public final static int closedLoopPeriodMs = 1;
+        // Motor neutral dead-band, set to the minimum 0.1%
+        public final static double NeutralDeadband = 0.001;
+
+        public final static int Izone_0 = 500;
+        public final static double PeakOutput_0 = 1;
+
+        /**
+         * Talon PID methods often demand slot ID's, so we wil keep this here I do not
+         * think we actually need it with Falcons anymore
+         */
+        public final static int SLOT_0 = 0;
+
+        // Gains for MotionMagic
+        public final static double motionMagicPidP_Value = 0.75;// * fullMotorOutput / encoderUnitsPerShaftRotation;
+        public final static double motionMagicPidI_Value = 0.005;// * fullMotorOutput / encoderUnitsPerShaftRotation;
+        public final static double motionMagicPidD_Value = 0.01;
+        public final static double motionMagicPidF_Value = 2;
+
+        public final static int motionMagicCruiseVelocity = 2250 * 3;
+        public final static int motionMagicAcceleration = 2250 * 3;
+        public final static int motionMagicSmoothing = 3;
     }
 
     public static final class OIConstants {
