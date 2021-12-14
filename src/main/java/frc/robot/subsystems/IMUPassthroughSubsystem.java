@@ -25,10 +25,8 @@ import frc.robot.Constants;
 
 public class IMUPassthroughSubsystem implements IMUInterface {
 
-  NavXIMUSubsystem navxIMU;
-  PigeonIMUSubsystem pigeonIMU;
-  IMUInterface imu; // We will use downcasting to set this - it will point to methods either in NavX
-                    // or Pigeon subsystems
+  private IMUInterface imu; // We will use downcasting to set this - it will point to methods either in NavX
+  // or Pigeon subsystems
 
   /** Creates a new IMUSubsystem. */
   public IMUPassthroughSubsystem() {

@@ -34,9 +34,9 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
-  private final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
+  public static final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
 
   // The driver's controller
   private final Joystick joystick = new Joystick(OIConstants.driverControllerPort);

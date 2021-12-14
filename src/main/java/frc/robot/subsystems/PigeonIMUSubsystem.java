@@ -14,7 +14,7 @@ public class PigeonIMUSubsystem extends SubsystemBase implements IMUInterface {
 
   private WPI_TalonSRX pigeyTalonSRX;
   private PigeonIMU pidgey;
-  double[] xyz = new double[3]; // so not to allocate one every time
+  private double[] xyz = new double[3]; // so not to allocate one every time
 
   /** Creates a new PigeonIMUSubsystem. */
   public PigeonIMUSubsystem() {

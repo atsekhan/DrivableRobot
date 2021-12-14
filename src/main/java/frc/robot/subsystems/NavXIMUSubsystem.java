@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class NavXIMUSubsystem extends SubsystemBase implements IMUInterface {
 
-  AHRS NavX;
+  private AHRS NavX;
 
   /** Creates a new NavXSubsystem. */
   public NavXIMUSubsystem() {
