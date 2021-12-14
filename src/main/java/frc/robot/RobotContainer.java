@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.IMUSubsystem;
+import frc.robot.subsystems.IMUPassthroughSubsystem;
 import frc.robot.subsystems.NavXIMUSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,7 +36,7 @@ public class RobotContainer {
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
-  private final IMUSubsystem imuSubsystem = new IMUSubsystem();
+  private final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
 
   // The driver's controller
   private final Joystick joystick = new Joystick(OIConstants.driverControllerPort);

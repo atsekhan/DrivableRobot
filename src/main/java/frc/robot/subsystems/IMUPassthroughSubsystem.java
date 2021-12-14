@@ -23,7 +23,7 @@ import frc.robot.Constants;
  * iinformation via methods
  */
 
-public class IMUSubsystem implements IMUInterface {
+public class IMUPassthroughSubsystem implements IMUInterface {
 
   NavXIMUSubsystem navxIMU;
   PigeonIMUSubsystem pigeonIMU;
@@ -31,7 +31,7 @@ public class IMUSubsystem implements IMUInterface {
                     // or Pigeon subsystems
 
   /** Creates a new IMUSubsystem. */
-  public IMUSubsystem() {
+  public IMUPassthroughSubsystem() {
 
     if (Constants.RobotProperties.isNaVX) {
       imu = new NavXIMUSubsystem();
