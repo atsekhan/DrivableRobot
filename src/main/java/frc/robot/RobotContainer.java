@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IMUSubsystem;
+import frc.robot.subsystems.NavXIMUSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -16,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.RobotProperties;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -24,6 +27,7 @@ import frc.robot.Constants.OIConstants;
  * scheduler calls). Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
+
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -32,8 +36,10 @@ public class RobotContainer {
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
+  private final IMUSubsystem imuSubsystem = new IMUSubsystem();
+
   // The driver's controller
-  Joystick joystick = new Joystick(OIConstants.driverControllerPort);
+  private final Joystick joystick = new Joystick(OIConstants.driverControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

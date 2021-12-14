@@ -15,6 +15,11 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static final class RobotProperties { // configure the type of robot here
+        public static boolean isNaVX = false;
+    }
+
     public static final class DriveConstants {
         public static final int[] leftMotorPortID = new int[] { 1 };
         public static final int[] rightMotorPortID = new int[] { 2 };
@@ -65,6 +70,12 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int driverControllerPort = 0;
+    }
+
+    public static final class PigeonIMU {
+        // If you have PigeonIMU, this is the ID of the Talon SRX the IMU is connected
+        // to
+        public static final int pigeonIMUId = 3;
     }
 
 }
