@@ -15,6 +15,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updateIMUValues() {
+    SmartDashboard.putString("IMU1", "IMU1!");
     SmartDashboard.putString("IMU: Yaw/Pitch/Roll ",
         String.format("%f", RobotContainer.imuSubsystem.getYaw()) + " "
             + String.format("%f", RobotContainer.imuSubsystem.getPitch()) + " "
