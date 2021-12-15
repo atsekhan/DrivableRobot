@@ -11,6 +11,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUPassthroughSubsystem;
 import frc.robot.subsystems.NavXIMUSubsystem;
+import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -37,6 +38,8 @@ public class RobotContainer {
   private static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
   public static final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
+
+  public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   // The driver's controller
   private final Joystick joystick = new Joystick(OIConstants.driverControllerPort);
