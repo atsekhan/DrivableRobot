@@ -16,13 +16,12 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
   public void updateIMUValues() {
     SmartDashboard.putString("IMU1", "IMU1!");
-    
-    SmartDashboard.putString("IMU-Y-P-R", String.format("%f",
-     RobotContainer.imuSubsystem.getYaw()) + " " + String.format("%f",
-     RobotContainer.imuSubsystem.getPitch()) + " " + String.format("%f",
-     RobotContainer.imuSubsystem.getRoll()));
-     
-    //SmartDashboard.putNumber("IMU-Yaw", RobotContainer.imuSubsystem.getYaw());
+
+    SmartDashboard.putString("IMU-Y-P-R",
+        String.format("%-5.6f", RobotContainer.imuSubsystem.getYaw()) + " "
+            + String.format("%-5.6f", RobotContainer.imuSubsystem.getPitch()) + " "
+            + String.format("%-5.6f", RobotContainer.imuSubsystem.getRoll()));
+
   }
 
   public void updateAllDisplays() {
