@@ -11,16 +11,14 @@ import frc.robot.RobotContainer;
 public class SmartDashboardSubsystem extends SubsystemBase {
   /** Creates a new SmartDashboardSubsystem. */
   public SmartDashboardSubsystem() {
-    SmartDashboard.putString("Friendly", "Good Morning!");
   }
 
   public void updateIMUValues() {
-    SmartDashboard.putString("IMU1", "IMU1!");
 
     SmartDashboard.putString("IMU-Y-P-R",
-        String.format("%-012.6f", RobotContainer.imuSubsystem.getYaw()) + " | "
-            + String.format("%-012.6f", RobotContainer.imuSubsystem.getPitch()) + " | "
-            + String.format("%-012.6f", RobotContainer.imuSubsystem.getRoll()));
+        String.format("%012.6f", RobotContainer.imuSubsystem.getYaw()) + "  "
+            + String.format("%012.6f", RobotContainer.imuSubsystem.getPitch()) + "  "
+            + String.format("%012.6f", RobotContainer.imuSubsystem.getRoll()));
 
   }
 
