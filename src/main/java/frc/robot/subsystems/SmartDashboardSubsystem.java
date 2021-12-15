@@ -11,6 +11,7 @@ import frc.robot.RobotContainer;
 public class SmartDashboardSubsystem extends SubsystemBase {
   /** Creates a new SmartDashboardSubsystem. */
   public SmartDashboardSubsystem() {
+    SmartDashboard.putString("Friendly", "Good Morning!");
   }
 
   public void updateIMUValues() {
