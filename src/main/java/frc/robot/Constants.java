@@ -16,8 +16,43 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final class RobotProperties { // configure the type of robot here
+    public static final class RobotProperties { // configure the type of robot here, such as presence/absence of a
+                                                // device, device type etc
         public static boolean isNaVX = false;
+    }
+
+    public static final class RobotConstants { // configure the physical properties unique to the robot here, such as
+                                               // dimensions, wheel diameter etc
+        public final static int wheelDiameter = 6; // inches
+        public final static double distanceBetweenWheels = 20; // inches
+        public final static int encoderUnitsPerShaftRotation = 2048;
+        public final static double encoderGearReduction = 11.25;
+        public final static int encoderUnitsPerRobotRotation = 66500;// thats the SUM of the two (this is just a rough
+                                                                     // guess, and should be measured)
+    }
+
+    public static final class TrajectoryDriving { // constants related to the trajectory driving
+
+        public final static double trajectoryRioPidP_Value = 1.43;// * RobotMap.fullMotorOutput /
+                                                                  // encoderUnitsPerShaftRotation;
+        public final static double trajectoryRioPidI_Value0 = 0.00;// * RobotMap.fullMotorOutput /
+                                                                   // encoderUnitsPerShaftRotation;
+        public final static double trajectoryRioPidD_Value0 = 0;
+
+        public final static double feedForwardStatic = 0.541;
+        public final static double feedForwardVelocity = 0.305;
+        public final static double feedForwardAcceleration = 0.0362;
+
+        // We will leave these here for now. However, if we plan to do multiple
+        // independents autonomous paths,
+        // we will need means to set them in the NavigationControlSubsystem constructor
+        // if needed
+        // resetPose method would reset a pose to the initial one with coordinates
+        // listed here, facing "east"
+        public static double startingPoseX = 0.9144;
+        // Note that the Slalom path requires a different value
+        public static double startingPoseY = 2.286;
+
     }
 
     public static final class DriveConstants {
@@ -66,6 +101,17 @@ public final class Constants {
         public final static int motionMagicCruiseVelocity = 2250 * 3;
         public final static int motionMagicAcceleration = 2250 * 3;
         public final static int motionMagicSmoothing = 3;
+
+        // Deadband values
+        public final static double deadbandX = 0.1;
+        public final static double deadbandY = 0.1;
+        public final static double deadbandZ = 0.1;
+
+        // The difference between the left and right side encoder values when the robot
+        // is rotated 180 degrees
+        // Allowable error to exit movement methods
+        public static int defaultAcceptableError = 250;
+
     }
 
     public static final class OIConstants {

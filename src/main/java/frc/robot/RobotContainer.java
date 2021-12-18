@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUPassthroughSubsystem;
-import frc.robot.subsystems.NavXIMUSubsystem;
+import frc.robot.subsystems.NavigationControlSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,14 +35,18 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
+  // Only one IMU subsystem should be used
   public static final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
 
+  // Most of the methods in this subsystem are static
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   // The driver's controller
   private final Joystick joystick = new Joystick(OIConstants.driverControllerPort);
+
+  public static NavigationControlSubsystem navigationControlSubsystem;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -58,6 +62,9 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new RunCommand(() -> driveSubsystem.arcadeDrive(joystick.getY(GenericHID.Hand.kLeft),
             joystick.getX(GenericHID.Hand.kRight)), driveSubsystem));
+
+    // Don't start kinematics untill we're ready
+    navigationControlSubsystem = new NavigationControlSubsystem(driveSubsystem, imuSubsystem);
 
   }
 

@@ -11,11 +11,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.RobotConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -23,6 +22,10 @@ public class DriveSubsystem extends SubsystemBase {
   private WPI_TalonFX[] rightDriveTalonFX = new WPI_TalonFX[DriveConstants.rightMotorPortID.length];
   private WPI_TalonFX[] leftDriveTalonFX = new WPI_TalonFX[DriveConstants.leftMotorPortID.length];
   public DifferentialDrive drive;
+
+  // For isOnTarget
+  boolean wasOnTarget = false;
+  int withinAcceptableErrorLoops = 0;
 
   public DriveSubsystem() {
 
@@ -66,6 +69,12 @@ public class DriveSubsystem extends SubsystemBase {
     // default inyway
     drive.setRightSideInverted(false);
 
+    configureSimpleMagic();
+
+  }
+
+  public void feed() {
+    drive.feed();
   }
 
   /**
@@ -87,6 +96,76 @@ public class DriveSubsystem extends SubsystemBase {
     for (int motor = 0; motor < DriveConstants.leftMotorPortID.length; motor++) {
       leftDriveTalonFX[motor].setNeutralMode(NeutralMode.Coast);
     }
+  }
+
+  /**
+   * This gets the number of encoder tics in a given inch
+   * 
+   * @return encoder tics in double form, for precision(tm)
+   */
+  public double getEncoderTicksPerInch() {
+    // tics per rotation / number of inches per rotation * gearReduction
+    return RobotConstants.encoderUnitsPerShaftRotation / (RobotConstants.wheelDiameter * Math.PI)
+        * RobotConstants.encoderGearReduction;
+  }
+
+  public void setLeftVoltage(double voltage) {
+    rightDriveTalonFX[0].setVoltage(voltage);
+  }
+
+  public void setRightVoltage(double voltage) {
+    rightDriveTalonFX[0].setVoltage(voltage);
+  }
+
+  public double deadbandMove(double move) {
+    if (Math.abs(move) >= DriveConstants.deadbandY) {
+      if (move > 0) {
+        move = (move - DriveConstants.deadbandY) / (1 - DriveConstants.deadbandY);
+      } else {
+        move = (move + DriveConstants.deadbandY) / (1 - DriveConstants.deadbandY);
+      }
+    } else {
+      move = 0;
+    }
+    return move;
+  }
+
+  public double deadbandTurn(double turn) {
+    if (Math.abs(turn) >= DriveConstants.deadbandX) {
+      if (turn > 0) {
+        turn = (turn - DriveConstants.deadbandX) / (1 - DriveConstants.deadbandX);
+      } else {
+        turn = (turn + DriveConstants.deadbandX) / (1 - DriveConstants.deadbandX);
+      }
+    } else {
+      turn = 0;
+    }
+    return turn;
+  }
+
+  public void manualDrive(double move, double turn) {
+    drive.arcadeDrive(deadbandMove(move), deadbandTurn(turn));
+  }
+
+  /** Get the number of tics moved by the left encoder */
+  public int getLeftEncoder() {
+    return (int) leftDriveTalonFX[0].getSelectedSensorPosition();
+  }
+
+  /** Get the number of tics moved by the left encoder */
+  public int getRightEncoder() {
+    return (int) rightDriveTalonFX[0].getSelectedSensorPosition();
+  }
+
+  // Make sure to adjust Units-of-measure if needed
+  // The RAW output is "number of ticks per 100ms", so you may need to convert it
+  // into m/s
+  public int getLeftEncoderSpeed() {
+    return (int) leftDriveTalonFX[0].getSelectedSensorVelocity();
+  }
+
+  public int getRightEncoderSpeed() {
+    return (int) rightDriveTalonFX[0].getSelectedSensorVelocity();
   }
 
   public void zeroDriveEncoders() {
@@ -211,6 +290,22 @@ public class DriveSubsystem extends SubsystemBase {
     leftDriveTalonFX[0].set(ControlMode.MotionMagic, leftEncoderVal);
     rightDriveTalonFX[0].set(ControlMode.MotionMagic, rightEncoderVal);
   }
+
+  /**
+   * Used by Trajectory driving This attempts to drive the wheels to reach the
+   * given velocities
+   * 
+   * @param leftSpeedTics  speed of left side in encoder tics per 100ms
+   * @param rightSpeedTics speed of right side in encoder tics per 100ms
+   */
+  public void velocityPid(double leftSpeedTics, double rightSpeedTics) {
+    leftDriveTalonFX[0].set(ControlMode.Velocity, leftSpeedTics);
+    rightDriveTalonFX[0].set(ControlMode.Velocity, rightSpeedTics);
+  }
+
+  // isOnTarget methods that we see in 2021 code were removed as they seem to be
+  // related to the
+  // "manual" trajectory driving rather than Kinematic driving one
 
   @Override
   public void periodic() {

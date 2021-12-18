@@ -16,14 +16,21 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   public void updateIMUValues() {
 
     SmartDashboard.putString("IMU-Y-P-R",
-        String.format("%012.6f", RobotContainer.imuSubsystem.getYaw()) + "  "
-            + String.format("%012.6f", RobotContainer.imuSubsystem.getPitch()) + "  "
-            + String.format("%012.6f", RobotContainer.imuSubsystem.getRoll()));
+        String.format("%12.6f", RobotContainer.imuSubsystem.getYaw()) + "  "
+            + String.format("%12.6f", RobotContainer.imuSubsystem.getPitch()) + "  "
+            + String.format("%12.6f", RobotContainer.imuSubsystem.getRoll()));
 
   }
 
   public void updateAllDisplays() {
     updateIMUValues();
+  }
+
+  // Trajectory/kinematic driving update; updated from NavigationControlSubsystem
+  public void updateMeterPrint(double left, double right) {
+    SmartDashboard.putNumber("left m", left);
+    SmartDashboard.putNumber("right m", right);
+
   }
 
   @Override
