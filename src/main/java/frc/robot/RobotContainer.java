@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUPassthroughSubsystem;
@@ -43,8 +44,13 @@ public class RobotContainer {
   // Most of the methods in this subsystem are static
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
-  // The driver's controller
-  private final Joystick joystick = new Joystick(OIConstants.driverControllerPort);
+  // The driver's controller - create variables, but only the ones needed will be
+  // initialized
+  public static Joystick driveStick = null;
+  public static Joystick turnStick = null;
+  public static XboxController xboxController = null;
+
+  // = new Joystick(OIConstants.driverControllerPort);
 
   public static NavigationControlSubsystem navigationControlSubsystem;
 
@@ -60,12 +66,34 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(
         // A split-stick arcade command, with forward/backward controlled by the left
         // hand, and turning controlled by the right.
-        new RunCommand(() -> driveSubsystem.arcadeDrive(joystick.getY(GenericHID.Hand.kLeft),
-            joystick.getX(GenericHID.Hand.kRight)), driveSubsystem));
+        // new RunCommand(() ->
+        // driveSubsystem.arcadeDrive(joystick.getY(GenericHID.Hand.kLeft),
+        // joystick.getX(GenericHID.Hand.kRight)), driveSubsystem));
+
+        new DriveManuallyCommand());
 
     // Don't start kinematics untill we're ready
     navigationControlSubsystem = new NavigationControlSubsystem(driveSubsystem, imuSubsystem);
 
+  }
+
+  /**
+   * Use this method to define your controllers depending on the
+   * {@link DriveInterface}
+   */
+  private void configureDriverInterface() {
+    switch (RobotProperties.driveInterface) {
+      case SPLITSTICK: // add 2 sticks
+        turnStick = new Joystick(OIConstants.turnControllerPort);
+      case ONESTICK: // add 1 stick
+        driveStick = new Joystick(OIConstants.driverControllerPort);
+        break;
+      case XBOXANDSTICK: // 1 stick and XBOX controller are created
+        driveStick = new Joystick(OIConstants.driverControllerPort);
+      case XBOX: // just the XBOX controller
+        xboxController = new XboxController(OIConstants.xboxControllerPort);
+        break;
+    }
   }
 
   /**

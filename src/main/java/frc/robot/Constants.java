@@ -16,9 +16,14 @@ package frc.robot;
  */
 public final class Constants {
 
+    public enum DriveInterface {
+        ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK
+    }
+
     public static final class RobotProperties { // configure the type of robot here, such as presence/absence of a
                                                 // device, device type etc
-        public static boolean isNaVX = false;
+        public static final boolean isNaVX = false;
+        public static final DriveInterface driveInterface = DriveInterface.XBOXANDSTICK;
     }
 
     public static final class RobotConstants { // configure the physical properties unique to the robot here, such as
@@ -112,10 +117,15 @@ public final class Constants {
         // Allowable error to exit movement methods
         public static int defaultAcceptableError = 250;
 
+        // Make smoother turns - see Cheezy Driving
+        public static double turnAdjust = 0.6;
+
     }
 
     public static final class OIConstants {
         public static final int driverControllerPort = 0;
+        public static final int turnControllerPort = 0;
+        public static final int xboxControllerPort = 2;
     }
 
     public static final class PigeonIMU {
