@@ -46,9 +46,9 @@ public class RobotContainer {
 
   // The driver's controller - create variables, but only the ones needed will be
   // initialized
-  public static Joystick driveStick = null;
-  public static Joystick turnStick = null;
-  public static XboxController xboxController = null;
+  public static Joystick driveStick;
+  public static Joystick turnStick;
+  public static XboxController xboxController;
 
   // = new Joystick(OIConstants.driverControllerPort);
 

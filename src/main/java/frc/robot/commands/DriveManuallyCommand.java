@@ -38,7 +38,7 @@ public class DriveManuallyCommand extends CommandBase {
       case XBOXANDSTICK: // 1 stick and XBOX controller are created
       case XBOX: // just the XBOX controller
         move = RobotContainer.xboxController.getX(GenericHID.Hand.kLeft);
-        turn = RobotContainer.driveStick.getX(GenericHID.Hand.kRight);
+        turn = RobotContainer.xboxController.getX(GenericHID.Hand.kRight);
         break;
     }
 
