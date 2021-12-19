@@ -60,6 +60,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    configureDriverInterface();
 
     // Configure default commands
     // Set the default drive command to split-stick arcade drive
