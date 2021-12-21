@@ -14,6 +14,8 @@ public class ShuffleboardSubsystem extends SubsystemBase {
   /** Creates a new ShuffleboardSubsystem. */
 
   private NetworkTableEntry maxSpeed;
+  private ShuffleboardLayout encoders;
+  private DriveSubsystem shuffleboardds;
 
   public ShuffleboardSubsystem() {
     setDriveSubsystemControls();
@@ -31,11 +33,18 @@ public class ShuffleboardSubsystem extends SubsystemBase {
   public void setDriveSubsystemTelemetry(DriveSubsystem ds) {
     // Add the tank drive and encoders to a 'Drivebase' tab
     ShuffleboardTab driveBaseTab = Shuffleboard.getTab("Drivebase");
-    driveBaseTab.add("Tank Drive", ds);
+
+    // Rememver the reference to the driveSubsystem
+    shuffleboardds = ds;
+
+    driveBaseTab.add("Tank Drive", shuffleboardds);
     // Put both encoders in a list layout
-    ShuffleboardLayout encoders = driveBaseTab.getLayout("List Layout", "Encoders").withPosition(0, 0).withSize(2, 2);
-    encoders.add("Left Encoder", ds.getLeftEncoder());
-    encoders.add("Right Encoder", ds.getRightEncoder());
+    encoders = driveBaseTab.getLayout("List Layout", "Encoders").withPosition(0, 0).withSize(2, 2);
+  }
+
+  public void updateDriveSubsystemTelemetry() {
+    encoders.add("Left Encoder", shuffleboardds.getLeftEncoder());
+    encoders.add("Right Encoder", shuffleboardds.getRightEncoder());
   }
 
   @Override
