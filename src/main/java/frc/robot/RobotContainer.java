@@ -12,6 +12,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUPassthroughSubsystem;
 import frc.robot.subsystems.NavigationControlSubsystem;
+import frc.robot.subsystems.ShuffleboardSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,6 +45,8 @@ public class RobotContainer {
   // Most of the methods in this subsystem are static
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
+  public static final ShuffleboardSubsystem shuffleboardSubsystem = new ShuffleboardSubsystem();
+
   // The driver's controller - create variables, but only the ones needed will be
   // initialized
   public static Joystick driveStick;
@@ -61,6 +64,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     configureDriverInterface();
+
+    // Set Driver telemetry
+    shuffleboardSubsystem.setDriveSubsystemTelemetry(driveSubsystem);
 
     // Configure default commands
     // Set the default drive command to split-stick arcade drive
