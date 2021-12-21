@@ -97,7 +97,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     // Update telemetry
-    // RobotContainer.shuffleboardSubsystem.updateDriveSubsystemTelemetry();
+    RobotContainer.smartDashboardSubsystem.updateDriveSubsystemTelemetry();
+    RobotContainer.smartDashboardSubsystem.updatePDPValues();
 
   }
 

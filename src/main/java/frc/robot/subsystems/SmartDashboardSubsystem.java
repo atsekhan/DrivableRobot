@@ -11,6 +11,17 @@ import frc.robot.RobotContainer;
 public class SmartDashboardSubsystem extends SubsystemBase {
   /** Creates a new SmartDashboardSubsystem. */
   public SmartDashboardSubsystem() {
+
+    // This subsystem needs to be instantiated after all device-related ones
+    updateDriveSubsystemTelemetry(); // initial update for the drive subsystem
+
+  }
+
+  // PDP telemetry
+  public void updatePDPValues() {
+    SmartDashboard.putNumber("PDP Voltage", RobotContainer.pdpSubsystem.getvoltage());
+    SmartDashboard.putNumber("PDP Current", RobotContainer.pdpSubsystem.getcurrent());
+    SmartDashboard.putNumber("PDP power", RobotContainer.pdpSubsystem.getpower());
   }
 
   public void updateIMUValues() {
@@ -20,6 +31,13 @@ public class SmartDashboardSubsystem extends SubsystemBase {
             + String.format("%12.6f", RobotContainer.imuSubsystem.getPitch()) + "  "
             + String.format("%12.6f", RobotContainer.imuSubsystem.getRoll()));
 
+  }
+
+  public void updateDriveSubsystemTelemetry() {
+    SmartDashboard.putNumber("Left Encoder Value", RobotContainer.driveSubsystem.getLeftEncoder());
+    SmartDashboard.putNumber("Left Encoder Speed", RobotContainer.driveSubsystem.getLeftEncoderSpeed());
+    SmartDashboard.putNumber("Right Encoder Value", RobotContainer.driveSubsystem.getRightEncoder());
+    SmartDashboard.putNumber("Right Encoder Speed", RobotContainer.driveSubsystem.getRightEncoderSpeed());
   }
 
   public void updateAllDisplays() {

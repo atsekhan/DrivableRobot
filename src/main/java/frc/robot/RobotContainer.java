@@ -12,6 +12,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUPassthroughSubsystem;
 import frc.robot.subsystems.NavigationControlSubsystem;
+import frc.robot.subsystems.PowerDistributionPanelSubsystem;
 import frc.robot.subsystems.ShuffleboardSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -42,6 +43,11 @@ public class RobotContainer {
   // Only one IMU subsystem should be used
   public static final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
 
+  // PowerDistributionBoard - used for telemetry information
+  public static final PowerDistributionPanelSubsystem pdpSubsystem = new PowerDistributionPanelSubsystem();
+
+  // Telemetry subsustems must be instantiated last. We report on the other
+  // subsystems there
   // Most of the methods in this subsystem are static
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
