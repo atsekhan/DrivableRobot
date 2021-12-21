@@ -19,8 +19,8 @@ import frc.robot.Constants.RobotConstants;
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
 
-  private WPI_TalonFX[] rightDriveTalonFX = new WPI_TalonFX[DriveConstants.rightMotorPortID.length];
-  private WPI_TalonFX[] leftDriveTalonFX = new WPI_TalonFX[DriveConstants.leftMotorPortID.length];
+  public WPI_TalonFX[] rightDriveTalonFX = new WPI_TalonFX[DriveConstants.rightMotorPortID.length];
+  public WPI_TalonFX[] leftDriveTalonFX = new WPI_TalonFX[DriveConstants.leftMotorPortID.length];
   public DifferentialDrive drive;
 
   // For isOnTarget

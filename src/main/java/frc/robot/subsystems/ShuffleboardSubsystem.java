@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ShuffleboardSubsystem extends SubsystemBase {
   /** Creates a new ShuffleboardSubsystem. */
@@ -40,12 +41,15 @@ public class ShuffleboardSubsystem extends SubsystemBase {
     driveBaseTab.add("Tank Drive", shuffleboardds);
     // Put both encoders in a list layout
     encoders = driveBaseTab.getLayout("List Layout", "Encoders").withPosition(0, 0).withSize(2, 2);
+    encoders.add("Left Encoder", ds.leftDriveTalonFX[0]);
+    encoders.add("Right Encoder", ds.rightDriveTalonFX[0]);
   }
 
-  public void updateDriveSubsystemTelemetry() {
-    encoders.add("Left Encoder", shuffleboardds.getLeftEncoder());
-    encoders.add("Right Encoder", shuffleboardds.getRightEncoder());
-  }
+  // public void updateDriveSubsystemTelemetry() {
+  // encoders.
+  // add("Left Encoder", shuffleboardds.getLeftEncoder());
+  // encoders.add("Right Encoder", shuffleboardds.getRightEncoder());
+  // }
 
   @Override
   public void periodic() {
