@@ -125,7 +125,7 @@ public final class Constants {
     public static final class OIConstants {
         public static final int driverControllerPort = 0;
         public static final int turnControllerPort = 0;
-        public static final int xboxControllerPort = 0;
+        public static final int xboxControllerPort = 1;
     }
 
     public static final class PigeonIMU {
