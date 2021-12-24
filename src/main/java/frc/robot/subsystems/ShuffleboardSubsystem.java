@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -14,8 +16,11 @@ public class ShuffleboardSubsystem extends SubsystemBase {
   /** Creates a new ShuffleboardSubsystem. */
 
   private NetworkTableEntry maxSpeed;
-  private ShuffleboardLayout encoders;
+
   private DriveSubsystem shuffleboardds;
+
+  private ShuffleboardTab displays = Shuffleboard.getTab("Telemetry");
+  ShuffleboardLayout speedometerLayout;
 
   public ShuffleboardSubsystem() {
     setDriveSubsystemControls();
@@ -32,23 +37,23 @@ public class ShuffleboardSubsystem extends SubsystemBase {
 
   public void setDriveSubsystemTelemetry(DriveSubsystem ds) {
     // Add the tank drive and encoders to a 'Drivebase' tab
-    ShuffleboardTab driveBaseTab = Shuffleboard.getTab("Drivebase");
+    ShuffleboardTab driveBaseTab = displays;
 
     // Rememver the reference to the driveSubsystem
     shuffleboardds = ds;
 
     driveBaseTab.add("Tank Drive", shuffleboardds);
     // Put both encoders in a list layout
-    encoders = driveBaseTab.getLayout("List Layout", "Encoders").withPosition(0, 0).withSize(2, 2);
-    encoders.add("Left Encoder", ds.leftDriveTalonFX[0]);
-    encoders.add("Right Encoder", ds.rightDriveTalonFX[0]);
-  }
+    // encoders = driveBaseTab.getLayout("List Layout", "Encoders").withPosition(0,
+    // 0).withSize(2, 2);
+    // encoders.add("Left Encoder", ds.leftDriveTalonFX[0]);
+    // encoders.add("Right Encoder", ds.rightDriveTalonFX[0]);
 
-  // public void updateDriveSubsystemTelemetry() {
-  // encoders.
-  // add("Left Encoder", shuffleboardds.getLeftEncoder());
-  // encoders.add("Right Encoder", shuffleboardds.getRightEncoder());
-  // }
+    speedometerLayout = displays.getLayout("Speedometers", BuiltInLayouts.kList).withSize(2, 3).withPosition(0, 0);
+    displays.getLayout("Speedometers").add("Left Encoder Speed", 40).withWidget(BuiltInWidgets.kDial);
+    displays.getLayout("Speedometers").add("Right Encoder Speed", 60).withWidget(BuiltInWidgets.kDial);
+
+  }
 
   @Override
   public void periodic() {
