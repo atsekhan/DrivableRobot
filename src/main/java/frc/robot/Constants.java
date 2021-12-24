@@ -134,4 +134,6 @@ public final class Constants {
         public static final int pigeonIMUId = 3;
     }
 
+    public static final int TeamNumber = 999;
+
 }
