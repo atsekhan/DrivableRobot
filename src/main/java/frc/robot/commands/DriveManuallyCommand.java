@@ -42,7 +42,8 @@ public class DriveManuallyCommand extends CommandBase {
         break;
     }
 
-    RobotContainer.driveSubsystem.manualDrive(move, turn * DriveConstants.turnAdjust);
+    RobotContainer.driveSubsystem.manualDrive(move * RobotContainer.shuffleboardSubsystem.maxSpeed.getDouble(1.0),
+        turn * DriveConstants.turnAdjust * RobotContainer.shuffleboardSubsystem.maxSpeed.getDouble(1.0));
   }
 
   // Called once the command ends or is interrupted.

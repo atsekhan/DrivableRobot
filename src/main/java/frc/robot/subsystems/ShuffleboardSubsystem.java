@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -15,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShuffleboardSubsystem extends SubsystemBase {
   /** Creates a new ShuffleboardSubsystem. */
 
-  private NetworkTableEntry maxSpeed;
+  public NetworkTableEntry maxSpeed;
 
   private DriveSubsystem shuffleboardds;
 
@@ -31,8 +33,8 @@ public class ShuffleboardSubsystem extends SubsystemBase {
     // slider
     // The widget will be placed in the second column and row and will be TWO
     // columns wide
-    maxSpeed = Shuffleboard.getTab("Configuration").add("Max Speed", 1).withWidget("Number Slider").withPosition(1, 1)
-        .withSize(2, 1).getEntry();
+    maxSpeed = Shuffleboard.getTab("Configuration").add("Max Speed", 1).withWidget("Number Slider")
+        .withProperties(Map.of("min", 0, "max", 1)).withPosition(1, 1).withSize(2, 1).getEntry();
   }
 
   public void setDriveSubsystemTelemetry(DriveSubsystem ds) {
