@@ -17,7 +17,15 @@ package frc.robot;
 public final class Constants {
 
     public enum DriveInterface {
-        ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK
+        ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK, MARIO
+    }
+
+    public static final class OIConstants {
+        public static final int driverControllerPort = 0;
+        public static final int turnControllerPort = 0;
+        public static final int xboxControllerPort = 1;
+        public static final int balanceBoardPort = 1;
+        public static final int wiiControllerPort = 0;
     }
 
     public static final class RobotProperties { // configure the type of robot here, such as presence/absence of a
@@ -120,12 +128,6 @@ public final class Constants {
         // Make smoother turns - see Cheezy Driving
         public static double turnAdjust = 1.0; // In Nintendo driving the limited is done via a slider on Shuffleboard
 
-    }
-
-    public static final class OIConstants {
-        public static final int driverControllerPort = 0;
-        public static final int turnControllerPort = 0;
-        public static final int xboxControllerPort = 1;
     }
 
     public static final class PigeonIMU {
