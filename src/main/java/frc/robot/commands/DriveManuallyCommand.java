@@ -50,7 +50,7 @@ public class DriveManuallyCommand extends CommandBase {
         // Balance board forward/back, guitar controller left/right
         move = RobotContainer.driveStick.getX(GenericHID.Hand.kRight) * (-1);
         // Button-0 - Green button; If pressed, go left, otherwise - right
-        turn = RobotContainer.turnStick.getZ() * ((RobotContainer.turnStick.getRawButtonPressed(0)) ? (-1) : 1);
+        turn = RobotContainer.turnStick.getZ() * ((RobotContainer.turnStick.getRawButton(1)) ? (-1) : 1);
         break;
     }
 
