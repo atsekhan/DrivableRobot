@@ -31,6 +31,7 @@ public class DriveManuallyCommand extends CommandBase {
       case SPLITSTICK: // add 2 sticks
         move = RobotContainer.driveStick.getY(GenericHID.Hand.kLeft) * (-1);
         turn = RobotContainer.turnStick.getX(GenericHID.Hand.kRight);
+        break;
       case ONESTICK:
         move = RobotContainer.driveStick.getY(GenericHID.Hand.kLeft) * (-1);
         turn = RobotContainer.driveStick.getX(GenericHID.Hand.kRight);
