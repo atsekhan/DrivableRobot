@@ -43,9 +43,8 @@ public class DriveManuallyCommand extends CommandBase {
         break;
       case MARIO:
         // Balance board forward/back, controller left/right
-
         move = RobotContainer.driveStick.getX(GenericHID.Hand.kRight) * (-1);
-        turn = RobotContainer.xboxController.getX(GenericHID.Hand.kRight);
+        turn = RobotContainer.turnStick.getX(GenericHID.Hand.kRight);
         break;
     }
 

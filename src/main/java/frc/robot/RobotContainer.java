@@ -111,7 +111,7 @@ public class RobotContainer {
         break;
       case MARIO: // Balance board forward/back, controller left/right
         driveStick = new Joystick(OIConstants.balanceBoardPort); // Balanceboard behaves like a joystick
-        xboxController = new XboxController(OIConstants.wiiControllerPort); // controller behaves more like XBox
+        turnStick = new Joystick(OIConstants.wiiControllerPort); // controller behaves more like XBox
         break;
     }
   }
