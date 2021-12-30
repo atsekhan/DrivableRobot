@@ -110,9 +110,11 @@ public class RobotContainer {
         xboxController = new XboxController(OIConstants.xboxControllerPort);
         break;
       case MARIO: // Balance board forward/back, controller left/right
+      case BOARDGUITAR: // Balance board forward/back, guitar controller left/right
         driveStick = new Joystick(OIConstants.balanceBoardPort); // Balanceboard behaves like a joystick
-        turnStick = new Joystick(OIConstants.wiiControllerPort); // controller behaves more like XBox
-        turnStick.setXChannel(3);
+        turnStick = new Joystick(OIConstants.wiiControllerPort); // Controller also behaves like a joystick, but uses a
+                                                                 // different channel for spacial rotation
+        turnStick.setXChannel(3); // use the second X-Axis channel for left/right turns
         break;
     }
   }

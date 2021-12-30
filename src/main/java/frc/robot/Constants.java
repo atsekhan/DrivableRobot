@@ -17,7 +17,7 @@ package frc.robot;
 public final class Constants {
 
     public enum DriveInterface {
-        ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK, MARIO
+        ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK, MARIO, BOARDGUITAR
     }
 
     public static final class OIConstants {
@@ -31,7 +31,7 @@ public final class Constants {
     public static final class RobotProperties { // configure the type of robot here, such as presence/absence of a
                                                 // device, device type etc
         public static final boolean isNaVX = false;
-        public static final DriveInterface driveInterface = DriveInterface.MARIO;
+        public static final DriveInterface driveInterface = DriveInterface.BOARDGUITAR;
     }
 
     public static final class RobotConstants { // configure the physical properties unique to the robot here, such as

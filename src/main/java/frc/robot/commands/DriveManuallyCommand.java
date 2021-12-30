@@ -46,6 +46,12 @@ public class DriveManuallyCommand extends CommandBase {
         move = RobotContainer.driveStick.getX(GenericHID.Hand.kRight) * (-1);
         turn = RobotContainer.turnStick.getX(GenericHID.Hand.kRight);
         break;
+      case BOARDGUITAR:
+        // Balance board forward/back, guitar controller left/right
+        move = RobotContainer.driveStick.getX(GenericHID.Hand.kRight) * (-1);
+        // Button-0 - Green button; If pressed, go left, otherwise - right
+        turn = RobotContainer.turnStick.getZ() * ((RobotContainer.turnStick.getRawButtonPressed(0)) ? (-1) : 1);
+        break;
     }
 
     RobotContainer.driveSubsystem.manualDrive(move * RobotContainer.shuffleboardSubsystem.maxSpeed.getDouble(1.0),
