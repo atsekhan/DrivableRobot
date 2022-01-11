@@ -16,14 +16,48 @@ package frc.robot;
  */
 public final class Constants {
 
+    public enum RobotModel {
+        FRANKENBOT, DEMOBOARD, C2021
+    }
+
+
+
     public enum DriveInterface {
         ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK
     }
 
     public static final class RobotProperties { // configure the type of robot here, such as presence/absence of a
                                                 // device, device type etc
-        public static final boolean isNaVX = false;
-        public static final DriveInterface driveInterface = DriveInterface.XBOX;
+
+        /**
+        * Robot Types:
+        * FRANKENBOT (2 falcons, pneumatics, Navx)
+        * Demo Board (2 falcons, no pneumatics, Pigeon)
+        */
+        public static final RobotModel robotModel = RobotModel.FRANKENBOT ;
+
+        public static boolean isNaVX = true;
+        public static DriveInterface driveInterface = DriveInterface.XBOX;
+        public static boolean isPneumatics = true ;
+        
+        public RobotProperties() {
+            switch (robotModel) {
+                case FRANKENBOT:
+                    isNaVX = true;
+                    driveInterface = DriveInterface.XBOX ;
+                    isPneumatics = true;
+                    break;
+                case DEMOBOARD:
+                    isNaVX = false;
+                    driveInterface = DriveInterface.ONESTICK ;
+                    isPneumatics = false;
+                    break;
+                default:
+                    isNaVX = true;
+                    driveInterface = DriveInterface.SPLITSTICK ;
+                    isPneumatics = true;
+                }
+        }
     }
 
     public static final class RobotConstants { // configure the physical properties unique to the robot here, such as
@@ -134,6 +168,14 @@ public final class Constants {
         public static final int pigeonIMUId = 3;
     }
 
-    public static final int TeamNumber = 999;
+    public static final class PneumaticsConstants{
 
+
+
+        public static final int[] SolenoidChannel = {0,7};
+        //index 0 is forward channel
+        //index 1 is reverse channel
+    }
+
+    public static final int TeamNumber = 999;
 }
