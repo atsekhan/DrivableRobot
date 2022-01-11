@@ -15,31 +15,34 @@ public class PneumaticsSubsystem extends SubsystemBase {
   private Compressor compressor;
   private static DoubleSolenoid solenoid;
 
-
   public PneumaticsSubsystem() {
-    if(Constants.RobotProperties.isPneumatics){
-      compressor = new Compressor(6);
-      //solenoid = new DoubleSolenoid(Constants.PneumaticsConstants.SolenoidChannel[0], Constants.PneumaticsConstants.SolenoidChannel[1]);
+    if (Constants.RobotProperties.isPneumatics) {
+      compressor = new Compressor(Constants.PneumaticsConstants.compressorCANID);
+      solenoid = new DoubleSolenoid(Constants.PneumaticsConstants.SolenoidChannel[0],
+          Constants.PneumaticsConstants.SolenoidChannel[1]);
       activateCompressor();
     }
   }
 
-  public void activateCompressor(){
+  public void activateCompressor() {
     compressor.setClosedLoopControl(true);
   }
 
-  public void deactivateCompressor(){
+  public void deactivateCompressor() {
     compressor.setClosedLoopControl(false);
   }
 
-  public void extendCylinder(){
+  public void extendCylinder() {
     solenoid.set(Value.kForward);
   }
 
-  public void retractCylinder(){
+  public void retractCylinder() {
     solenoid.set(Value.kReverse);
   }
 
+  public void toggleCylinder() {
+    solenoid.toggle();
+  }
 
   @Override
   public void periodic() {

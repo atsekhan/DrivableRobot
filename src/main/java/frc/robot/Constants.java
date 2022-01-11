@@ -20,8 +20,6 @@ public final class Constants {
         FRANKENBOT, DEMOBOARD, C2021
     }
 
-
-
     public enum DriveInterface {
         ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK
     }
@@ -30,44 +28,54 @@ public final class Constants {
                                                 // device, device type etc
 
         /**
-        * Robot Types:
-        * FRANKENBOT (2 falcons, pneumatics, Navx)
-        * Demo Board (2 falcons, no pneumatics, Pigeon)
-        */
-        public static final RobotModel robotModel = RobotModel.FRANKENBOT ;
+         * Robot Types: FRANKENBOT (2 falcons, pneumatics, Navx) Demo Board (2 falcons,
+         * no pneumatics, Pigeon)
+         */
+        public static final RobotModel robotModel = RobotModel.FRANKENBOT;
 
         public static boolean isNaVX = true;
         public static DriveInterface driveInterface = DriveInterface.XBOX;
-        public static boolean isPneumatics = true ;
-        
+        public static boolean isPneumatics = true;
+
         public RobotProperties() {
             switch (robotModel) {
                 case FRANKENBOT:
                     isNaVX = true;
-                    driveInterface = DriveInterface.XBOX ;
+                    driveInterface = DriveInterface.XBOX;
                     isPneumatics = true;
                     break;
                 case DEMOBOARD:
                     isNaVX = false;
-                    driveInterface = DriveInterface.ONESTICK ;
+                    driveInterface = DriveInterface.ONESTICK;
                     isPneumatics = false;
                     break;
                 default:
                     isNaVX = true;
-                    driveInterface = DriveInterface.SPLITSTICK ;
+                    driveInterface = DriveInterface.SPLITSTICK;
                     isPneumatics = true;
-                }
+            }
         }
     }
 
     public static final class RobotConstants { // configure the physical properties unique to the robot here, such as
                                                // dimensions, wheel diameter etc
-        public final static int wheelDiameter = 6; // inches
-        public final static double distanceBetweenWheels = 20; // inches
-        public final static int encoderUnitsPerShaftRotation = 2048;
-        public final static double encoderGearReduction = 11.25;
-        public final static int encoderUnitsPerRobotRotation = 66500;// thats the SUM of the two (this is just a rough
-                                                                     // guess, and should be measured)
+        public static int wheelDiameter = 6; // inches
+        public static double distanceBetweenWheels = 20; // inches
+        public static int encoderUnitsPerShaftRotation = 2048;
+        public static double encoderGearReduction = 11.25;
+        public static int encoderUnitsPerRobotRotation = 66500;// thats the SUM of the two (this is just a rough
+                                                               // guess, and should be measured)
+
+        public RobotConstants() {
+            switch (RobotProperties.robotModel) {
+                case FRANKENBOT:
+                    wheelDiameter = 4;
+                    encoderUnitsPerShaftRotation = 2048;
+                    encoderGearReduction = 6.1;
+                    break;
+                default:
+            }
+        }
     }
 
     public static final class TrajectoryDriving { // constants related to the trajectory driving
@@ -168,13 +176,25 @@ public final class Constants {
         public static final int pigeonIMUId = 3;
     }
 
-    public static final class PneumaticsConstants{
+    public static final class PneumaticsConstants {
 
+        public static int compressorCANID = 0;
 
+        // index 0 is forward channel
+        // index 1 is reverse channel
+        public static int[] SolenoidChannel;
 
-        public static final int[] SolenoidChannel = {0,7};
-        //index 0 is forward channel
-        //index 1 is reverse channel
+        public PneumaticsConstants() {
+            switch (RobotProperties.robotModel) {
+                case FRANKENBOT:
+                    compressorCANID = 6;
+                    SolenoidChannel = new int[] { 0, 7 };
+                    break;
+                default:
+                    compressorCANID = 0;
+            }
+        }
+
     }
 
     public static final int TeamNumber = 999;

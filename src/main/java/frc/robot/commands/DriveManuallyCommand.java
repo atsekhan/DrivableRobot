@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.RobotProperties;
@@ -42,7 +43,7 @@ public class DriveManuallyCommand extends CommandBase {
         break;
     }
 
-    RobotContainer.driveSubsystem.manualDrive(move, turn * DriveConstants.turnAdjust);
+    RobotContainer.driveSubsystem.manualDrive(move, turn * Constants.DriveConstants.turnAdjust);
   }
 
   // Called once the command ends or is interrupted.
