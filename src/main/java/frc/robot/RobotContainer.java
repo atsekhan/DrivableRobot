@@ -9,13 +9,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.FrankenbotToggleSolenoid;
+import frc.robot.commands.FrankenbotExtendSolenoid;
+import frc.robot.commands.FrankenbotRetractSolenoid;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IMUPassthroughSubsystem;
 import frc.robot.subsystems.NavigationControlSubsystem;
 import frc.robot.subsystems.NetworkTablesSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.PowerDistributionPanelSubsystem;
+import frc.robot.subsystems.ShooterTest;
 import frc.robot.subsystems.ShuffleboardSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -48,6 +50,7 @@ public class RobotContainer {
 
   public static final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
+  public static final ShooterTest shooterTest = new ShooterTest();
   // PowerDistributionBoard - used for telemetry information
   public static final PowerDistributionPanelSubsystem pdpSubsystem = new PowerDistributionPanelSubsystem();
 
@@ -75,8 +78,9 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
     configureDriverInterface();
+    configureButtonBindings();
+
 
     // Set Driver telemetry
     shuffleboardSubsystem.setDriveSubsystemTelemetry(driveSubsystem);
@@ -94,6 +98,12 @@ public class RobotContainer {
 
     // Don't start kinematics untill we're ready
     navigationControlSubsystem = new NavigationControlSubsystem(driveSubsystem, imuSubsystem);
+
+    new JoystickButton(driveStick, 11).whenPressed(new FrankenbotExtendSolenoid());
+    new JoystickButton(driveStick, 12).whenPressed(new FrankenbotRetractSolenoid());
+
+      new JoystickButton(driveStick, 10).whenPressed(new InstantCommand(shooterTest::motorOn,shooterTest));
+      new JoystickButton(driveStick, 9).whenPressed(new InstantCommand(shooterTest::motorOff,shooterTest));
 
   }
 
@@ -114,6 +124,7 @@ public class RobotContainer {
         xboxController = new XboxController(OIConstants.xboxControllerPort);
         break;
     }
+
   }
 
   /**
@@ -126,7 +137,7 @@ public class RobotContainer {
 
     switch (RobotProperties.robotModel) {
       case FRANKENBOT:
-        new JoystickButton(driveStick, 11).whenPressed(new FrankenbotToggleSolenoid());
+//        new JoystickButton(driveStick, 11).whenPressed(new FrankenbotToggleSolenoid());
       default:
     }
 

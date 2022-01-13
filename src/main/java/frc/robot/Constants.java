@@ -34,14 +34,14 @@ public final class Constants {
         public static final RobotModel robotModel = RobotModel.FRANKENBOT;
 
         public static boolean isNaVX = true;
-        public static DriveInterface driveInterface = DriveInterface.XBOX;
+        public static DriveInterface driveInterface = DriveInterface.ONESTICK;
         public static boolean isPneumatics = true;
 
         public RobotProperties() {
             switch (robotModel) {
                 case FRANKENBOT:
                     isNaVX = true;
-                    driveInterface = DriveInterface.XBOX;
+                    driveInterface = DriveInterface.ONESTICK;
                     isPneumatics = true;
                     break;
                 case DEMOBOARD:
@@ -51,7 +51,7 @@ public final class Constants {
                     break;
                 default:
                     isNaVX = true;
-                    driveInterface = DriveInterface.SPLITSTICK;
+                    driveInterface = DriveInterface.ONESTICK;
                     isPneumatics = true;
             }
         }
@@ -166,7 +166,7 @@ public final class Constants {
 
     public static final class OIConstants {
         public static final int driverControllerPort = 0;
-        public static final int turnControllerPort = 0;
+        public static final int turnControllerPort = 1;
         public static final int xboxControllerPort = 1;
     }
 
@@ -187,7 +187,7 @@ public final class Constants {
         public PneumaticsConstants() {
             switch (RobotProperties.robotModel) {
                 case FRANKENBOT:
-                    compressorCANID = 6;
+                    compressorCANID = 0;
                     SolenoidChannel = new int[] { 0, 7 };
                     break;
                 default:
