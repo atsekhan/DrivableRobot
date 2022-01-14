@@ -114,12 +114,6 @@ public class RobotContainer {
     // Don't start kinematics untill we're ready
     navigationControlSubsystem = new NavigationControlSubsystem(driveSubsystem, imuSubsystem);
 
-    new JoystickButton(driveStick, 11).whenPressed(new FrankenbotExtendSolenoid());
-    new JoystickButton(driveStick, 12).whenPressed(new FrankenbotRetractSolenoid());
-
-    new JoystickButton(driveStick, 10).whenPressed(new InstantCommand(shooterTest::motorOn, shooterTest));
-    new JoystickButton(driveStick, 9).whenPressed(new InstantCommand(shooterTest::motorOff, shooterTest));
-
   }
 
   /**
