@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.RobotConstants;
+import frc.robot.Constants.RobotDriveChassisConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -109,8 +109,8 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getEncoderTicksPerInch() {
     // tics per rotation / number of inches per rotation * gearReduction
-    return RobotConstants.encoderUnitsPerShaftRotation / (RobotConstants.wheelDiameter * Math.PI)
-        * RobotConstants.encoderGearReduction;
+    return RobotDriveChassisConstants.encoderUnitsPerShaftRotation
+        / (RobotDriveChassisConstants.wheelDiameter * Math.PI) * RobotDriveChassisConstants.encoderGearReduction;
   }
 
   public void setLeftVoltage(double voltage) {

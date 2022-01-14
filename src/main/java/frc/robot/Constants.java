@@ -14,68 +14,51 @@ package frc.robot;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+
+/**
+ * Default settings set here are overwritten in
+ * RobotContainer.configureRobotSettings()
+ */
+
 public final class Constants {
 
-    public enum RobotModel {
+    public static enum RobotModel {
         FRANKENBOT, DEMOBOARD, C2021
     }
 
-    public enum DriveInterface {
+    public static enum DriveInterface {
         ONESTICK, SPLITSTICK, XBOX, XBOXANDSTICK
     }
 
     public static final class RobotProperties { // configure the type of robot here, such as presence/absence of a
                                                 // device, device type etc
 
+        public static boolean robotLogging = true; // if set to TRUE, enable logging to the USB stick via
+                                                   // SimpleCSVLogging
+
         /**
          * Robot Types: FRANKENBOT (2 falcons, pneumatics, Navx) Demo Board (2 falcons,
          * no pneumatics, Pigeon)
          */
-        public static final RobotModel robotModel = RobotModel.FRANKENBOT;
 
-        public static boolean isNaVX = true;
-        public static DriveInterface driveInterface = DriveInterface.ONESTICK;
-        public static boolean isPneumatics = true;
+        public static final RobotModel robotModel = RobotModel.DEMOBOARD; // This setting must be set properly !!! It
+                                                                          // controls the rest of the setup
 
-        public RobotProperties() {
-            switch (robotModel) {
-                case FRANKENBOT:
-                    isNaVX = true;
-                    driveInterface = DriveInterface.ONESTICK;
-                    isPneumatics = true;
-                    break;
-                case DEMOBOARD:
-                    isNaVX = false;
-                    driveInterface = DriveInterface.ONESTICK;
-                    isPneumatics = false;
-                    break;
-                default:
-                    isNaVX = true;
-                    driveInterface = DriveInterface.ONESTICK;
-                    isPneumatics = true;
-            }
-        }
+        public static boolean isNaVX;
+        public static DriveInterface driveInterface;
+        public static boolean isPneumatics;
+
     }
 
-    public static final class RobotConstants { // configure the physical properties unique to the robot here, such as
-                                               // dimensions, wheel diameter etc
+    public static final class RobotDriveChassisConstants { // configure the physical properties unique to the robot
+                                                           // here, such as
+        // dimensions, wheel diameter etc
         public static int wheelDiameter = 6; // inches
         public static double distanceBetweenWheels = 20; // inches
         public static int encoderUnitsPerShaftRotation = 2048;
         public static double encoderGearReduction = 11.25;
         public static int encoderUnitsPerRobotRotation = 66500;// thats the SUM of the two (this is just a rough
                                                                // guess, and should be measured)
-
-        public RobotConstants() {
-            switch (RobotProperties.robotModel) {
-                case FRANKENBOT:
-                    wheelDiameter = 4;
-                    encoderUnitsPerShaftRotation = 2048;
-                    encoderGearReduction = 6.1;
-                    break;
-                default:
-            }
-        }
     }
 
     public static final class TrajectoryDriving { // constants related to the trajectory driving
@@ -103,13 +86,13 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
-        public static final int[] leftMotorPortID = new int[] { 1 };
-        public static final int[] rightMotorPortID = new int[] { 2 };
+        public static int[] leftMotorPortID = new int[] { 1 };
+        public static int[] rightMotorPortID = new int[] { 2 };
 
-        public static final int[] kLeftEncoderPorts = new int[] { 1 };
-        public static final int[] kRightEncoderPorts = new int[] { 2 };
-        public static final boolean kLeftEncoderReversed = false;
-        public static final boolean kRightEncoderReversed = true;
+        public static int[] kLeftEncoderPorts = new int[] { 1 };
+        public static int[] kRightEncoderPorts = new int[] { 2 };
+        public static boolean kLeftEncoderReversed = false;
+        public static boolean kRightEncoderReversed = true;
 
         public static final int kEncoderCPR = 1024;
         public static final double kWheelDiameterInches = 6;
@@ -173,28 +156,16 @@ public final class Constants {
     public static final class PigeonIMU {
         // If you have PigeonIMU, this is the ID of the Talon SRX the IMU is connected
         // to
-        public static final int pigeonIMUId = 3;
+        public static int pigeonIMUId;
     }
 
     public static final class PneumaticsConstants {
 
-        public static int compressorCANID = 0;
+        public static int compressorCANID;
 
         // index 0 is forward channel
         // index 1 is reverse channel
         public static int[] SolenoidChannel;
-
-        public PneumaticsConstants() {
-            switch (RobotProperties.robotModel) {
-                case FRANKENBOT:
-                    compressorCANID = 0;
-                    SolenoidChannel = new int[] { 0, 7 };
-                    break;
-                default:
-                    compressorCANID = 0;
-            }
-        }
-
     }
 
     public static final int TeamNumber = 999;

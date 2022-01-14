@@ -9,26 +9,29 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ShooterTest extends SubsystemBase {
+public class TEMPShooterTestSubsystem extends SubsystemBase {
   public WPI_TalonSRX shooterMotorController1 = new WPI_TalonSRX(16);
   public WPI_TalonSRX shooterMotorController2 = new WPI_TalonSRX(4);
 
   /** Creates a new ShooterTest. */
-  public ShooterTest() {
+  public TEMPShooterTestSubsystem() {
     shooterMotorController1.setInverted(true);
   }
-  public void motorOn(){
+
+  public void motorOn() {
     shooterMotorController1.setNeutralMode(NeutralMode.Brake);
     shooterMotorController1.set(1);
     shooterMotorController2.setNeutralMode(NeutralMode.Brake);
     shooterMotorController2.set(1);
   }
-  public void motorOff(){
+
+  public void motorOff() {
     shooterMotorController1.setNeutralMode(NeutralMode.Coast);
     shooterMotorController1.set(0);
     shooterMotorController2.setNeutralMode(NeutralMode.Coast);
     shooterMotorController2.set(0);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

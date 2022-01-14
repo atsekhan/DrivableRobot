@@ -17,7 +17,7 @@ import frc.robot.subsystems.NavigationControlSubsystem;
 import frc.robot.subsystems.NetworkTablesSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.PowerDistributionPanelSubsystem;
-import frc.robot.subsystems.ShooterTest;
+
 import frc.robot.subsystems.ShuffleboardSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -27,7 +27,17 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.PigeonIMU;
+import frc.robot.Constants.PneumaticsConstants;
+import frc.robot.Constants.RobotDriveChassisConstants;
 import frc.robot.Constants.RobotProperties;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.DriveInterface;
+
+/**
+ * Temporary testing
+ */
+import frc.robot.subsystems.TEMPShooterTestSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -50,7 +60,9 @@ public class RobotContainer {
 
   public static final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
-  public static final ShooterTest shooterTest = new ShooterTest();
+  // TODO: remove this temporary test when done testing the prototypes
+  public static final TEMPShooterTestSubsystem shooterTest = new TEMPShooterTestSubsystem();
+
   // PowerDistributionBoard - used for telemetry information
   public static final PowerDistributionPanelSubsystem pdpSubsystem = new PowerDistributionPanelSubsystem();
 
@@ -77,10 +89,13 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
+    // Configure Robot Settings based on the constants
+    configureRobotSettings();
+
     // Configure the button bindings
     configureDriverInterface();
     configureButtonBindings();
-
 
     // Set Driver telemetry
     shuffleboardSubsystem.setDriveSubsystemTelemetry(driveSubsystem);
@@ -102,8 +117,8 @@ public class RobotContainer {
     new JoystickButton(driveStick, 11).whenPressed(new FrankenbotExtendSolenoid());
     new JoystickButton(driveStick, 12).whenPressed(new FrankenbotRetractSolenoid());
 
-      new JoystickButton(driveStick, 10).whenPressed(new InstantCommand(shooterTest::motorOn,shooterTest));
-      new JoystickButton(driveStick, 9).whenPressed(new InstantCommand(shooterTest::motorOff,shooterTest));
+    new JoystickButton(driveStick, 10).whenPressed(new InstantCommand(shooterTest::motorOn, shooterTest));
+    new JoystickButton(driveStick, 9).whenPressed(new InstantCommand(shooterTest::motorOff, shooterTest));
 
   }
 
@@ -123,8 +138,9 @@ public class RobotContainer {
       case XBOX: // just the XBOX controller
         xboxController = new XboxController(OIConstants.xboxControllerPort);
         break;
+      default: // ONESTICK
+        turnStick = new Joystick(OIConstants.turnControllerPort);
     }
-
   }
 
   /**
@@ -137,10 +153,77 @@ public class RobotContainer {
 
     switch (RobotProperties.robotModel) {
       case FRANKENBOT:
-//        new JoystickButton(driveStick, 11).whenPressed(new FrankenbotToggleSolenoid());
+
+        new JoystickButton(driveStick, 11).whenPressed(new FrankenbotExtendSolenoid());
+        new JoystickButton(driveStick, 12).whenPressed(new FrankenbotRetractSolenoid());
+
+        new JoystickButton(driveStick, 10).whenPressed(new InstantCommand(shooterTest::motorOn, shooterTest));
+        new JoystickButton(driveStick, 9).whenPressed(new InstantCommand(shooterTest::motorOff, shooterTest));
+
+      case DEMOBOARD:
+        Robot.simpleCSVLogger.writeData("ButtonBinding Configured");
+
       default:
     }
 
+  }
+
+  private void configureRobotSettings() {
+    switch (RobotProperties.robotModel) {
+      case FRANKENBOT:
+
+        // Subsystem Settings
+        RobotProperties.isNaVX = true;
+        RobotProperties.driveInterface = DriveInterface.ONESTICK;
+        RobotProperties.isPneumatics = true;
+
+        // Drivetrain settings
+        DriveConstants.leftMotorPortID = new int[] { 9 };
+        DriveConstants.rightMotorPortID = new int[] { 10 };
+        DriveConstants.kLeftEncoderPorts = new int[] { 9 };
+        DriveConstants.kRightEncoderPorts = new int[] { 10 };
+        DriveConstants.kLeftEncoderReversed = false;
+        DriveConstants.kRightEncoderReversed = true;
+
+        RobotDriveChassisConstants.wheelDiameter = 4;
+        RobotDriveChassisConstants.encoderUnitsPerShaftRotation = 2048;
+        RobotDriveChassisConstants.encoderGearReduction = 6.1;
+
+        // Pneumatics
+        PneumaticsConstants.compressorCANID = 0;
+        PneumaticsConstants.SolenoidChannel = new int[] { 0, 7 };
+
+        Robot.simpleCSVLogger.writeData("Subsystem Configured", "FRANKENBOT");
+
+        break;
+      case DEMOBOARD:
+
+        // Subsystem Settings
+        RobotProperties.isNaVX = false;
+        RobotProperties.driveInterface = DriveInterface.ONESTICK;
+        RobotProperties.isPneumatics = false;
+
+        // Drivetrain settings
+        DriveConstants.leftMotorPortID = new int[] { 1 };
+        DriveConstants.rightMotorPortID = new int[] { 2 };
+        DriveConstants.kLeftEncoderPorts = new int[] { 1 };
+        DriveConstants.kRightEncoderPorts = new int[] { 2 };
+        DriveConstants.kLeftEncoderReversed = false;
+        DriveConstants.kRightEncoderReversed = true;
+
+        // IMU
+        PigeonIMU.pigeonIMUId = 3;
+
+        Robot.simpleCSVLogger.writeData("Subsystem Configured", "DEMOBOARD");
+
+        break;
+      default:
+
+        // Subsystem Settings
+        RobotProperties.isNaVX = true;
+        RobotProperties.driveInterface = DriveInterface.SPLITSTICK;
+        RobotProperties.isPneumatics = true;
+    }
   }
 
   /**

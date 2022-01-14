@@ -17,10 +17,11 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
   public PneumaticsSubsystem() {
     if (Constants.RobotProperties.isPneumatics) {
-      compressor = new Compressor(Constants.PneumaticsConstants.compressorCANID);
-      //solenoid = new DoubleSolenoid(Constants.PneumaticsConstants.SolenoidChannel[0],
-      //   Constants.PneumaticsConstants.SolenoidChannel[1]);
-      solenoid = new DoubleSolenoid(0, 7);
+      compressor = new Compressor(Constants.PneumaticsConstants.compressorCANID); // TODO: Test that pneumatics
+                                                                                  // constants are now set correctly
+      solenoid = new DoubleSolenoid(Constants.PneumaticsConstants.SolenoidChannel[0],
+          Constants.PneumaticsConstants.SolenoidChannel[1]);
+      // solenoid = new DoubleSolenoid(0, 7);
       activateCompressor();
     }
   }

@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.RobotContainer;
-import frc.robot.Constants.RobotConstants;
+import frc.robot.Constants.RobotDriveChassisConstants;
 import frc.robot.Constants.TrajectoryDriving;
 
 import java.io.IOException;
@@ -49,7 +49,8 @@ public class NavigationControlSubsystem extends SubsystemBase {
   public NavigationControlSubsystem(DriveSubsystem driveSubsystem, IMUPassthroughSubsystem imuSubsystem) {
     this.driveSubsystem = driveSubsystem; // Instance variable shadowed by local variable
     imu = imuSubsystem;
-    kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(RobotConstants.distanceBetweenWheels));
+    kinematics = new DifferentialDriveKinematics(
+        Units.inchesToMeters(RobotDriveChassisConstants.distanceBetweenWheels));
     leftPidController = new PIDController(TrajectoryDriving.trajectoryRioPidP_Value,
         TrajectoryDriving.trajectoryRioPidI_Value0, TrajectoryDriving.trajectoryRioPidD_Value0);
     rightPidController = new PIDController(TrajectoryDriving.trajectoryRioPidP_Value,

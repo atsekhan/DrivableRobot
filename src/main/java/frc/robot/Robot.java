@@ -21,11 +21,23 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   /**
+   * Robot on-board logging
+   */
+  public static final SimpleCSVLogger simpleCSVLogger = new SimpleCSVLogger();
+
+  /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
+
+    // enable loggin if needed
+    if (Constants.RobotProperties.robotLogging) {
+      simpleCSVLogger.init(new String[] { "Module" }, new String[] { "Message" }); // start the logging; initialize the
+                                                                                   // log file on the USB stick
+    }
+
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
@@ -56,6 +68,13 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+
+    // disable loggin if needed
+    if (Constants.RobotProperties.robotLogging) {
+      simpleCSVLogger.forceSync();
+      simpleCSVLogger.close();
+    }
+
   }
 
   @Override
@@ -89,6 +108,12 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+    }
+
+    // enable loggin if needed
+    if (Constants.RobotProperties.robotLogging) {
+      simpleCSVLogger.init(new String[] { "Module" }, new String[] { "Message" }); // start the logging; initialize the
+                                                                                   // log file on the USB stick
     }
   }
 
