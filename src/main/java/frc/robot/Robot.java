@@ -34,8 +34,7 @@ public class Robot extends TimedRobot {
 
     // enable loggin if needed
     if (Constants.RobotProperties.robotLogging) {
-      simpleCSVLogger.init(new String[] { "Module" }, new String[] { "Message" }); // start the logging; initialize the
-                                                                                   // log file on the USB stick
+      simpleCSVLogger.init(new String[] { "Module" }, new String[] { "Message" }); // start the logging; initialize the log file                                                                           // log file on the USB stick
     }
 
     // Instantiate our RobotContainer. This will perform all our button bindings,

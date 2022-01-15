@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.Arrays;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
@@ -56,9 +58,9 @@ public class RobotContainer {
   public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 
   // Only one IMU subsystem should be used
-  public static final IMUPassthroughSubsystem imuSubsystem = new IMUPassthroughSubsystem();
+  public static IMUPassthroughSubsystem imuSubsystem;
 
-  public static final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
+  public static PneumaticsSubsystem pneumaticsSubsystem;
 
   // TODO: remove this temporary test when done testing the prototypes
   public static final TEMPShooterTestSubsystem shooterTest = new TEMPShooterTestSubsystem();
@@ -95,6 +97,10 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureDriverInterface();
+
+    imuSubsystem = new IMUPassthroughSubsystem();
+    pneumaticsSubsystem = new PneumaticsSubsystem();
+
     configureButtonBindings();
 
     // Set Driver telemetry
@@ -163,6 +169,7 @@ public class RobotContainer {
   }
 
   private void configureRobotSettings() {
+
     switch (RobotProperties.robotModel) {
       case FRANKENBOT:
 
@@ -187,8 +194,7 @@ public class RobotContainer {
         PneumaticsConstants.compressorCANID = 0;
         PneumaticsConstants.SolenoidChannel = new int[] { 0, 7 };
 
-        Robot.simpleCSVLogger.writeData("Subsystem Configured", "FRANKENBOT");
-
+        //Robot.simpleCSVLogger.writeData("******  ---- **** Subsystem Configured", "FRANKENBOT");
         break;
       case DEMOBOARD:
 
@@ -218,6 +224,9 @@ public class RobotContainer {
         RobotProperties.driveInterface = DriveInterface.SPLITSTICK;
         RobotProperties.isPneumatics = true;
     }
+
+    System.out.println("End CRS" + PneumaticsConstants.compressorCANID);
+
   }
 
   /**
